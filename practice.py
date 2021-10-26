@@ -1,6 +1,8 @@
 
 
 from typing import Tuple
+from numpy import set_printoptions
+import pandas as pd
 
 
 Name = "Bruno Vallejos"
@@ -123,6 +125,42 @@ with open("C:/Users/bruno.vallejos/Desktop/pyprog/myfile.txt","r") as File1: ##e
 ##print(file_stuff)
 
 with open("C:/Users/bruno.vallejos/Desktop/pyprog/myfile2.txt","w") as File2:
-    File2.write("This is line A")
+    File2.write("This is line A \n")
+    File2.write("This is line B \n")
+    File2.write("This is line C")
+
+with open("C:/Users/bruno.vallejos/Desktop/pyprog/myfile2.txt","r") as readfile:
+    with open("C:/Users/bruno.vallejos/Desktop/pyprog/myfile3.txt","w") as writefile:
+        for line in readfile:
+            writefile.write(line)
+
+csv_path = "C:/Users/bruno.vallejos/Desktop/pyprog/myfile4.csv"
+
+try:
+    dataframe = pd.read_csv (csv_path) ## da error al querer leer y que no posea datos
+except IOError:
+    print("The file has no data to read")
+
+dataframe.head()
+
+
+xlsx_path = "C:/Users/bruno.vallejos/Desktop/pyprog/myfile5.xlsx"
+dataframe2 = pd.read_excel (xlsx_path) ## da error al querer leer y que no posea datos. Necesita openpyxl y xlrd instalados mediante pip
+dataframe2.head()
+
+xlsx_path = "C:/Users/bruno.vallejos/Desktop/pyprog/myfile6.xlsx"
+songs_frame = pd.read_excel (xlsx_path) 
+songs_frame.head()
+songs = {"Album":["Thriller","Back in Black","The dar side of the moon","The bodyguard","bat out of hell"], "Released":[1982,1980,1973,1992,1977],"Length":["00:42:19","00:41:11","00:42:49","00:57:44","00:46:33"]}
+songs_frame = pd.DataFrame(songs)
+newdf = songs_frame[["Album"]] ## me devuelve un nuevo dataframe con las columnas que yo quiera
+
+dfunique = songs_frame["Released"].unique() 
+df = songs_frame["Released"]  >= 1980 ## trae boolean 
+df1 = songs_frame[df] ##colocando de nuevo dentro del dataframe, trae un dataframe filtrado
+
+df1.to_csv("C:/Users/bruno.vallejos/Desktop/pyprog/new_songs.csv")
+
+
 
 print ("End")
