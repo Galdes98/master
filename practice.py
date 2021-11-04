@@ -1,9 +1,13 @@
-
+##pip install numpy
 
 from typing import Tuple
 from numpy import set_printoptions
 import pandas as pd
-
+import numpy as np
+from pandas.io import html 
+import requests as re 
+from requests.api import request 
+from bs4 import BeautifulSoup ##web scrapper
 
 Name = "Bruno Vallejos"
 Name2 = Name.upper()
@@ -161,6 +165,122 @@ df1 = songs_frame[df] ##colocando de nuevo dentro del dataframe, trae un datafra
 
 df1.to_csv("C:/Users/bruno.vallejos/Desktop/pyprog/new_songs.csv")
 
+a = np.array([0,1,2,3,4])
+
+print(type(a))
+print(a.dtype)
+print(a.size)
+print(a.ndim)
+print(a.shape)
+
+b = np.array([0.31,1.22,2,3,4])
+
+print(type(b))
+print(b.dtype)
+
+c = np.array([20,1,2,3,4])
+c[0] = 100
+c[4] = 0
+
+print(c)
+
+d = c[1:4]
+
+print(d)
+
+d[1:3] = 300, 400
+
+print (d)
+
+##slow
+u = [1,0]
+v = [0,1]
+z=[]
+
+for n, m in zip(u, v):
+    z.append(n + m)
+
+##fast
+
+u2 = np.array([1,0])
+v2 = np.array([0,1])
+
+z2 = u2 + v2
+
+npi = np.pi
+
+x = np.array([0, npi/2, npi])
+y = np.sin(x)
+print (y)
+
+x2 = np.linspace(0, 2*np.pi, 100)
+y2 = np.sin(x2)
+
+print (y2)
+
+a2d = [[11,12,13],
+       [21,22,23],
+       [31,32,33]]
+
+a2d = np.array(a)
+
+print (a2d.ndim)
+print (a2d.shape)
+
+
+url = 'https://www.ibm.com/'
+
+r = re.get(url)
+print (r.status_code)
+print (r.request.body)
+
+header = r.headers
+print (header)
+print (header['date'])
+print (header['Content-Type'])
+print (r.encoding)
+print (r.text)
+
+url_get = 'http://httpbin.org/get'
+payload = {"name":"Joseph","ID":"123"}
+
+r2 = re.get(url_get, params = payload)
+print (r.url)
+print (r.request.body)
+print (r.text)
+##print (r.json()['form'])
+
+url_post = 'http://httpbin.org/post'
+payload2 = {"name":"Joseph","ID":"123"}
+
+r_post = re.post(url_post, data = payload2)
+
+print ("POST request URL: ", r_post.url)
+print ("GET request URL: ", r2.url)
+
+print ("POST request body: ", r_post.request.body)
+print ("GET request body: ", r2.request.body)
+
+print (r_post.json()['form'])
+
+paghtml = "<!DCOTYPE html><html><head><title>Page Title</title></head><body><h3><b id='boldest'>Lebron James</b></h3><p> Salary: $ 92,000,000 </p><h3> Stephen Curry </h3><p> Salary: $ 85,000,000 </p><h3> Kevin Durant </h3><p> Salary: $ 73,200,000 </p></body></html>"
+
+soup = BeautifulSoup(paghtml, 'html5lib')
+
+tag_object = soup.title
+print (tag_object)
+tag_object = soup.h3
+print (tag_object)
+tag_child = tag_object.b 
+print (tag_child)
+parent_tag = tag_child.parent
+print (parent_tag)
+sibling_1 = tag_object.next_sibling 
+print (sibling_1) 
+sibling_2 = sibling_1.next_sibling 
+print (sibling_2) 
+print (tag_child.attrs)
+print (tag_child.string)
 
 
 print ("End")
